@@ -1,0 +1,25 @@
+### Eclipse
+.classpath
+.metadata/
+.project
+RemoteSystemsTempFiles/
+.settings/
+
+### IDEA
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+### Java
+*.class
+*.jar
+*.war
+
+### Log file
+*.log
+*.log.gz
+
+### Maven
+target/
