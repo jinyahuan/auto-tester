@@ -21,6 +21,7 @@ package cn.jinyahuan.commons.tester.report;
  *
  * @author Yahuan Jin
  * @see ReportStatus
+ * @see Report
  * @since 0.1
  */
 public enum DefaultReportStatus implements ReportStatus {

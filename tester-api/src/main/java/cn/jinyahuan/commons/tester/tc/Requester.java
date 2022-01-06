@@ -30,10 +30,51 @@ package cn.jinyahuan.commons.tester.tc;
  */
 public interface Requester<R, T> {
     /**
+     * 获取请求的参数。
+     *
+     * @return 请求的参数
+     */
+    T getParam();
+
+    /**
+     * 设置请求的参数。
+     *
+     * @param param 求的参数
+     */
+    void setParam(T param);
+
+    /**
+     * 获取请求后的结果数据。
+     *
+     * @return 请求后的结果数据
+     */
+    R getResponse();
+
+    /**
+     * 设置请求后的结果数据。
+     *
+     * @param responseData 请求后的结果数据
+     */
+    void setResponse(R responseData);
+
+    /**
      * 发送请求。
      *
      * @param param 发送请求的参数
      * @return 请求的结果
      */
     R request(T param);
+
+    /**
+     * 发送请求。
+     *
+     * @return 请求的结果
+     */
+    default R request() {
+        R response = request(getParam());
+        setResponse(response);
+        return response;
+    }
+
+    // todo api 信息：host、path、请求参数类型、返回参数类型
 }

@@ -36,4 +36,6 @@ public interface ResponseHandler<R, T> {
      * @return 处理结果
      */
     R handle(T param);
+
+    // todo 请求参数、返回参数
 }

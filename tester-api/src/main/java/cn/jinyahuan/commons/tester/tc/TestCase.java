@@ -21,20 +21,18 @@ import cn.jinyahuan.commons.tester.report.Report;
 /**
  * 测试用例的超类接口。
  *
+ * @param <P> 测试报告的类型
+ * @param <R> {@code API}请求结果数据的类型
+ * @param <T> 发送{@code API}请求的参数类型
  * @author Yahuan Jin
+ * @see AbstractTestCase
+ * @see Report
  * @see Requester
  * @see ResponseHandler
  * @see TestCaseGroup
  * @since 0.1
  */
-public interface TestCase {
-    /**
-     * 对测试用例进行测试。
-     *
-     * @return 测试报告
-     */
-    Report test();
-
+public interface TestCase<P, R, T> {
     /**
      * 获取测试用例的编号。
      *
@@ -49,5 +47,38 @@ public interface TestCase {
      */
     void setTestCaseNo(String testCaseNo);
 
-    // todo 请求参数以及结果处理器应该也是要需要获取及设置的
+    /**
+     * 获取测试用例的{@code API}请求器。
+     *
+     * @return 测试用例的{@code API}请求器
+     */
+    Requester<R, T> getRequester();
+
+    /**
+     * 设置测试用例的{@code API}请求器。
+     *
+     * @param requester 测试用例的{@code API}请求器
+     */
+    void setRequester(Requester<R, T> requester);
+
+    /**
+     * 获取测试用例的{@code API}请求器请求结果数据的处理器。
+     *
+     * @return 测试用例的{@code API}请求器请求结果数据的处理器
+     */
+    ResponseHandler<P, R> getResponseHandler();
+
+    /**
+     * 设置测试用例的{@code API}请求器请求结果数据的处理器。
+     *
+     * @param responseHandler 测试用例的{@code API}请求器请求结果数据的处理器
+     */
+    void setResponseHandler(ResponseHandler<P, R> responseHandler);
+
+    /**
+     * 对测试用例进行测试。
+     *
+     * @return 一份测试报告
+     */
+    P test();
 }

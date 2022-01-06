@@ -29,20 +29,6 @@ import cn.jinyahuan.commons.tester.tc.TestCase;
  */
 public interface Report {
     /**
-     * 获取测试用例编号。
-     *
-     * @return 测试用例编号
-     */
-    String getTestCaseNo();
-
-    /**
-     * 设置测试用例编号。
-     *
-     * @param testCaseNo 测试用例编号
-     */
-    void setTestCaseNo(String testCaseNo);
-
-    /**
      * 获取报告的状态。
      *
      * @return 报告的状态
@@ -70,5 +56,31 @@ public interface Report {
      */
     void setMsg(String msg);
 
-    // todo TestCase 是否需要？？？
+    /**
+     * 获取报告关联的测试用例的编号。
+     *
+     * @return 报告关联的测试用例的编号
+     */
+    String getTestCaseNo();
+
+    /**
+     * 设置报告关联的测试用例的编号。
+     *
+     * @param testCaseNo 报告关联的测试用例的编号
+     */
+    void setTestCaseNo(String testCaseNo);
+
+    /**
+     * 获取报告关联的测试用例。
+     *
+     * @return 报告关联的测试用例
+     */
+    TestCase getTestCase();
+
+    /**
+     * 设置报告关联的测试用例。
+     *
+     * @param testCase 报告关联的测试用例
+     */
+    void setTestCase(TestCase testCase);
 }

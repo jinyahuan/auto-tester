@@ -22,6 +22,7 @@ package cn.jinyahuan.commons.tester.report;
  *
  * @author Yahuan Jin
  * @see DefaultReportStatus
+ * @see Report
  * @since 0.1
  */
 public interface ReportStatus {

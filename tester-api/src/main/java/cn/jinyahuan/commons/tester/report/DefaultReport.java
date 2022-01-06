@@ -16,6 +16,8 @@
 
 package cn.jinyahuan.commons.tester.report;
 
+import cn.jinyahuan.commons.tester.tc.TestCase;
+
 /**
  * 默认的测试报告类。
  *
@@ -30,6 +32,10 @@ public class DefaultReport extends AbstractReport implements Report {
      */
     public static final Report PASS = DefaultReport.newImmutableSuccessful();
     /**
+     * 一个{@link DefaultReport}对象实例，其状态为跳过的，并且为不可变对象。
+     */
+    public static final Report SKIP = DefaultReport.newImmutableSkip();
+    /**
      * 一个{@link DefaultReport}对象实例，其状态为不通过的，并且为不可变对象。
      */
     public static final Report FAIL = DefaultReport.newImmutableFailure();
@@ -38,8 +44,8 @@ public class DefaultReport extends AbstractReport implements Report {
 
     public DefaultReport() {}
 
-    public DefaultReport(String testCaseNo, ReportStatus status, String msg) {
-        super(testCaseNo, status, msg);
+    public DefaultReport(ReportStatus status, String msg, String testCaseNo, TestCase testCase) {
+        super(status, msg, testCaseNo, testCase);
     }
 
     // - - -
@@ -47,23 +53,37 @@ public class DefaultReport extends AbstractReport implements Report {
     /**
      * 创建一个{@link DefaultReport}对象实例，其状态为通过的。
      *
-     * @param testCaseNo 测试用例编号
      * @param msg        报告的摘要信息
+     * @param testCaseNo 报告关联的测试用例的编号
+     * @param testCase   报告关联的测试用例
      * @return 一个{@link DefaultReport}对象实例，其状态为通过的
      */
-    public static Report newPassed(String testCaseNo, String msg) {
-        return new DefaultReport(testCaseNo, DefaultReportStatus.PASS, msg);
+    public static Report newPassed(String msg, String testCaseNo, TestCase testCase) {
+        return new DefaultReport(DefaultReportStatus.PASS, msg, testCaseNo, testCase);
+    }
+
+    /**
+     * 创建一个{@link DefaultReport}对象实例，其状态为跳过的。
+     *
+     * @param msg        报告的摘要信息
+     * @param testCaseNo 报告关联的测试用例的编号
+     * @param testCase   报告关联的测试用例
+     * @return 一个{@link DefaultReport}对象实例，其状态为跳过的
+     */
+    public static Report newSkip(String msg, String testCaseNo, TestCase testCase) {
+        return new DefaultReport(DefaultReportStatus.SKIP, msg, testCaseNo, testCase);
     }
 
     /**
      * 创建一个{@link DefaultReport}对象实例，其状态为不通过的。
      *
-     * @param testCaseNo 测试用例编号
      * @param msg        报告的摘要信息
+     * @param testCaseNo 报告关联的测试用例的编号
+     * @param testCase   报告关联的测试用例
      * @return 一个{@link DefaultReport}对象实例，其状态为不通过的
      */
-    public static Report newFailed(String testCaseNo, String msg) {
-        return new DefaultReport(testCaseNo, DefaultReportStatus.FAIL, msg);
+    public static Report newFailed(String msg, String testCaseNo, TestCase testCase) {
+        return new DefaultReport(DefaultReportStatus.FAIL, msg, testCaseNo, testCase);
     }
 
     /**
@@ -102,12 +122,7 @@ public class DefaultReport extends AbstractReport implements Report {
      * @return 一个 {@link DefaultReport}对象实例，其状态为通过的，并且为不可变对象
      */
     private static Report newImmutableSuccessful() {
-        return new DefaultReport(null, DefaultReportStatus.PASS, "通过") {
-            @Override
-            public void setTestCaseNo(String testCaseNo) {
-                return;
-            }
-
+        return new DefaultReport(DefaultReportStatus.PASS, "通过", null, null) {
             @Override
             public void setStatus(ReportStatus status) {
                 return;
@@ -115,6 +130,45 @@ public class DefaultReport extends AbstractReport implements Report {
 
             @Override
             public void setMsg(String msg) {
+                return;
+            }
+
+            @Override
+            public void setTestCaseNo(String testCaseNo) {
+                return;
+            }
+
+            @Override
+            public void setTestCase(TestCase testCase) {
+                return;
+            }
+        };
+    }
+
+    /**
+     * 创建一个{@link DefaultReport}对象实例，其状态为跳过的，并且为不可变对象。
+     *
+     * @return 一个 {@link DefaultReport}对象实例，其状态为跳过的，并且为不可变对象
+     */
+    private static Report newImmutableSkip() {
+        return new DefaultReport(DefaultReportStatus.SKIP, "跳过", null, null) {
+            @Override
+            public void setStatus(ReportStatus status) {
+                return;
+            }
+
+            @Override
+            public void setMsg(String msg) {
+                return;
+            }
+
+            @Override
+            public void setTestCaseNo(String testCaseNo) {
+                return;
+            }
+
+            @Override
+            public void setTestCase(TestCase testCase) {
                 return;
             }
         };
@@ -126,12 +180,7 @@ public class DefaultReport extends AbstractReport implements Report {
      * @return 一个 {@link DefaultReport}对象实例，其状态为不通过的，并且为不可变对象
      */
     private static Report newImmutableFailure() {
-        return new DefaultReport(null, DefaultReportStatus.FAIL, "失败") {
-            @Override
-            public void setTestCaseNo(String testCaseNo) {
-                return;
-            }
-
+        return new DefaultReport(DefaultReportStatus.FAIL, "失败", null, null) {
             @Override
             public void setStatus(ReportStatus status) {
                 return;
@@ -139,6 +188,16 @@ public class DefaultReport extends AbstractReport implements Report {
 
             @Override
             public void setMsg(String msg) {
+                return;
+            }
+
+            @Override
+            public void setTestCaseNo(String testCaseNo) {
+                return;
+            }
+
+            @Override
+            public void setTestCase(TestCase testCase) {
                 return;
             }
         };
