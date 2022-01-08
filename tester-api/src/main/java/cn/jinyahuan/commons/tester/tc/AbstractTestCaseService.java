@@ -24,19 +24,34 @@ import cn.jinyahuan.commons.tester.report.Report;
  * @param <T> 发送{@code API}请求的参数类型
  * @author Yahuan Jin
  * @see TestCase
+ * @see TestCaseService
  * @see Report
  * @see Requester
  * @see ResponseHandler
  * @see TestCaseGroup
  * @since 0.1
  */
-public abstract class AbstractTestCase<P, R, T> implements TestCase<P, R, T> {
+public abstract class AbstractTestCaseService<P, R, T> implements TestCaseService<P, R, T> {
     /** 测试用例的编号 */
     protected String testCaseNo;
     /** 测试用例的{@code API}请求器 */
     protected Requester<R, T> requester;
     /** 测试用例的{@code API}请求器请求结果数据的处理器 */
     protected ResponseHandler<P, R> responseHandler;
+    /** 测试用例的启动测试时间的毫秒数（与 UTC 时间 1970-01-01 的毫秒数差） */
+    protected Long startTime;
+    /** 测试用例的结束测试时间的毫秒数（与 UTC 时间 1970-01-01 的毫秒数差） */
+    protected Long endTime;
+
+    // - - -
+
+    public AbstractTestCaseService() {}
+
+    public AbstractTestCaseService(String testCaseNo, Requester<R, T> requester, ResponseHandler<P, R> responseHandler) {
+        this.testCaseNo = testCaseNo;
+        this.requester = requester;
+        this.responseHandler = responseHandler;
+    }
 
     // - - -
 
@@ -71,13 +86,39 @@ public abstract class AbstractTestCase<P, R, T> implements TestCase<P, R, T> {
     }
 
     @Override
+    public Long getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
+    }
+
+    @Override
+    public Long getEndTime() {
+        return endTime;
+    }
+
+    @Override
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
+    }
+
+    @Override
     public P test() {
+        P result = null;
+
+        setStartTime(System.currentTimeMillis());
         if (requester != null) {
             R response = requester.request();
             if (response != null) {
-                return responseHandler.handle(response);
+                responseHandler.setParam(response);
+                result = responseHandler.handle();
             }
         }
-        return null;
+        setEndTime(System.currentTimeMillis());
+
+        return result;
     }
 }

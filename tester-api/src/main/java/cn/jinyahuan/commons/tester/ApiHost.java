@@ -14,39 +14,39 @@
  * limitations under the License.
  */
 
-package cn.jinyahuan.commons.tester.tc;
-
-import cn.jinyahuan.commons.tester.report.Report;
-
-import java.util.Collection;
-import java.util.List;
+package cn.jinyahuan.commons.tester;
 
 /**
- * 测试用例组的超类接口。
- * <p>此类用于线性的执行测试用例组内的所有测试用例。
- * <p>todo 需要重构。
+ * Api host 的超类接口。
  *
  * @author Yahuan Jin
- * @see Requester
- * @see ResponseHandler
- * @see TestCase
  * @since 0.1
  */
-public interface TestCaseGroup {
+public interface ApiHost {
     /**
-     * 线性的对测试用例组内的所有测试用例进行测试。
+     * 获取 host 地址。
      *
-     * @return 测试结果
+     * @return host 地址
      */
-    List<Report> testAll();
+    String getHost();
 
-    String getGroupNo();
+    /**
+     * 获取 host 的助记名称。
+     *
+     * @return host 的助记名称
+     */
+    String getName();
 
-    void setGroupNo(String groupNo);
+    /**
+     * 获取 host 的摘要信息。
+     *
+     * @return host 的摘要信息
+     */
+    String getSummary();
 
-    boolean addTestCase(TestCase testCase);
-
-    boolean addAllTestCase(Collection<TestCase> testCases);
-
-    int size();
+    /**
+     * 是否为正式环境的 host。
+     * @return {@code true}，当且仅当当前的 host 实例为正式环境
+     */
+    boolean isProductEnvironment();
 }

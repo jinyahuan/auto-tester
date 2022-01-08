@@ -14,39 +14,33 @@
  * limitations under the License.
  */
 
-package cn.jinyahuan.commons.tester.tc;
-
-import cn.jinyahuan.commons.tester.report.Report;
-
-import java.util.Collection;
-import java.util.List;
+package cn.jinyahuan.commons.tester;
 
 /**
- * 测试用例组的超类接口。
- * <p>此类用于线性的执行测试用例组内的所有测试用例。
- * <p>todo 需要重构。
+ * Api path 的超类接口。
  *
  * @author Yahuan Jin
- * @see Requester
- * @see ResponseHandler
- * @see TestCase
  * @since 0.1
  */
-public interface TestCaseGroup {
+public interface ApiPath {
     /**
-     * 线性的对测试用例组内的所有测试用例进行测试。
+     * 获取 api 的 path 地址。
      *
-     * @return 测试结果
+     * @return api 的 path 地址
      */
-    List<Report> testAll();
+    String getPath();
 
-    String getGroupNo();
+    /**
+     * 获取 api path 的标题。
+     *
+     * @return api path 的标题
+     */
+    String getTitle();
 
-    void setGroupNo(String groupNo);
-
-    boolean addTestCase(TestCase testCase);
-
-    boolean addAllTestCase(Collection<TestCase> testCases);
-
-    int size();
+    /**
+     * 获取 api path 的摘要信息。
+     *
+     * @return api path 的摘要信息
+     */
+    String getSummary();
 }

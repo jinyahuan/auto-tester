@@ -30,12 +30,80 @@ package cn.jinyahuan.commons.tester.tc;
  */
 public interface ResponseHandler<R, T> {
     /**
-     * 处理响应内容。
+     * 获取处理器的执行参数，也就是{@link Requester 请求器}的请求结果。
      *
-     * @param param 响应的内容，执行{@link Requester#request(Object)}后的返回值
+     * @return 处理器的执行参数
+     */
+    T getParam();
+
+    /**
+     * 获取设置的处理器的执行参数。
+     *
+     * @param param 设置的处理器的执行参数
+     */
+    void setParam(T param);
+
+    /**
+     * 获取处理器的执行结果。
+     *
+     * @return 处理器的执行结果
+     */
+    R getResult();
+
+    /**
+     * 设置处理器的执行结果。
+     *
+     * @param result 处理器的执行结果
+     */
+    void setResult(R result);
+
+    /**
+     * 获取请求{@code API}的开始时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     *
+     * @return 请求{@code API}的开始时间毫秒数
+     */
+    Long getStartTime();
+
+    /**
+     * 设置处理器的开始执行时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     *
+     * @param startTime 处理器的开始执行时间毫秒数
+     */
+    void setStartTime(Long startTime);
+
+    /**
+     * 获取处理器的结束执行时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     *
+     * @return 处理器的结束执行时间毫秒数
+     */
+    Long getEndTime();
+
+    /**
+     * 设置处理器的结束执行时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     *
+     * @param endTime 处理器的结束执行时间毫秒数
+     */
+    void setEndTime(Long endTime);
+
+    /**
+     * 处理。
+     *
+     * @param param 处理器的执行参数，一般来自执行{@link Requester#request(Object)}后的返回值
      * @return 处理结果
      */
     R handle(T param);
 
-    // todo 请求参数、返回参数
+    /**
+     * 处理。
+     *
+     * @return 处理结果
+     */
+    default R handle() {
+        setStartTime(System.currentTimeMillis());
+        R result = handle(getParam());
+        setEndTime(System.currentTimeMillis());
+
+        setResult(result);
+        return result;
+    }
 }

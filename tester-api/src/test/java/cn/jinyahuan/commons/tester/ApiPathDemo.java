@@ -14,28 +14,38 @@
  * limitations under the License.
  */
 
-package cn.jinyahuan.commons.tester.tc;
-
-import cn.jinyahuan.commons.tester.report.Report;
+package cn.jinyahuan.commons.tester;
 
 /**
- * 测试用例的超类接口。
- *
- * @param <T> 测试报告的类型
  * @author Yahuan Jin
- * @see TestCaseService
- * @see AbstractTestCaseService
- * @see Report
- * @see Requester
- * @see ResponseHandler
- * @see TestCaseGroup
  * @since 0.1
  */
-public interface TestCase<T> {
-    /**
-     * 对测试用例进行测试。
-     *
-     * @return 一份测试报告
-     */
-    T test();
+public enum ApiPathDemo implements ApiPath {
+    ACCOUNT_LOGIN("/acct/login", "账号登录", ""),
+    ;
+
+    private final String path;
+    private final String title;
+    private final String summary;
+
+    ApiPathDemo(String path, String title, String summary) {
+        this.path = path;
+        this.title = title;
+        this.summary = summary;
+    }
+
+    @Override
+    public String getPath() {
+        return path;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getSummary() {
+        return summary;
+    }
 }

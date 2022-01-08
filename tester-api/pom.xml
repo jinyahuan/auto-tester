@@ -27,4 +27,11 @@
     <groupId>cn.jinyahuan.commons.tester</groupId>
     <artifactId>tester-api</artifactId>
     <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
 </project>

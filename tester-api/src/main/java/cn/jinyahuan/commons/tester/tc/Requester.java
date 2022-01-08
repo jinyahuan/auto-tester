@@ -16,6 +16,9 @@
 
 package cn.jinyahuan.commons.tester.tc;
 
+import cn.jinyahuan.commons.tester.ApiHost;
+import cn.jinyahuan.commons.tester.ApiPath;
+
 /**
  * 请求器的超类接口。
  * <p>此类用于测试用例调用{@code API}。
@@ -26,9 +29,38 @@ package cn.jinyahuan.commons.tester.tc;
  * @see ResponseHandler
  * @see TestCase
  * @see TestCaseGroup
+ * @see ApiHost
  * @since 0.1
  */
 public interface Requester<R, T> {
+    /**
+     * 获取请求器的 api host 信息。
+     *
+     * @return 请求器的 api host 信息
+     */
+    ApiHost getApiHost();
+
+    /**
+     * 设置请求器的 api host 信息
+     *
+     * @param apiHost 请求器的 api host 信息
+     */
+    void setApiHost(ApiHost apiHost);
+
+    /**
+     * 获取请求器的 api path 信息。
+     *
+     * @return 请求器的 api path 信息
+     */
+    ApiPath getApiPath();
+
+    /**
+     * 设置请求器的 api path 信息。
+     *
+     * @param apiPath 请求器的 api path 信息
+     */
+    void setApiPath(ApiPath apiPath);
+
     /**
      * 获取请求的参数。
      *
@@ -48,14 +80,42 @@ public interface Requester<R, T> {
      *
      * @return 请求后的结果数据
      */
-    R getResponse();
+    R getResult();
 
     /**
      * 设置请求后的结果数据。
      *
-     * @param responseData 请求后的结果数据
+     * @param Result 请求后的结果数据
      */
-    void setResponse(R responseData);
+    void setResult(R Result);
+
+    /**
+     * 获取请求{@code API}的开始时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     *
+     * @return 请求{@code API}的开始时间毫秒数
+     */
+    Long getStartTime();
+
+    /**
+     * 设置请求{@code API}的开始时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     *
+     * @param startTime 请求{@code API}的开始时间毫秒数
+     */
+    void setStartTime(Long startTime);
+
+    /**
+     * 获取请求{@code API}的结束时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     *
+     * @return 请求{@code API}的结束时间毫秒数
+     */
+    Long getEndTime();
+
+    /**
+     * 设置请求{@code API}的结束时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     *
+     * @param endTime 请求{@code API}的结束时间毫秒数
+     */
+    void setEndTime(Long endTime);
 
     /**
      * 发送请求。
@@ -71,10 +131,11 @@ public interface Requester<R, T> {
      * @return 请求的结果
      */
     default R request() {
+        setStartTime(System.currentTimeMillis());
         R response = request(getParam());
-        setResponse(response);
+        setEndTime(System.currentTimeMillis());
+
+        setResult(response);
         return response;
     }
-
-    // todo api 信息：host、path、请求参数类型、返回参数类型
 }
