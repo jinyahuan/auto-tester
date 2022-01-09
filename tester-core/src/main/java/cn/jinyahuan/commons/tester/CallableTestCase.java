@@ -14,26 +14,28 @@
  * limitations under the License.
  */
 
-package cn.jinyahuan.commons.tester.tc;
+package cn.jinyahuan.commons.tester;
 
 import cn.jinyahuan.commons.tester.report.Report;
+import cn.jinyahuan.commons.tester.tc.TestCase;
+
+import java.util.concurrent.Callable;
 
 /**
- * @param <R> {@code API}请求结果数据的类型
- * @param <T> 发送{@code API}请求的参数类型
+ * todo 用于在线程池中执行。
+ *
  * @author Yahuan Jin
- * @see TestCase
- * @see NestedTestCase
- * @see TestCaseService
- * @see Report
- * @see Requester
- * @see ResponseHandler
  * @since 0.1
  */
-public abstract class AbstractReportTestCaseService<R, T> extends AbstractTestCaseService<Report, R, T> {
-    public AbstractReportTestCaseService() {}
-
-    public AbstractReportTestCaseService(String testCaseNo, Requester<R, T> requester, ResponseHandler<Report, R> responseHandler) {
-        super(testCaseNo, requester, responseHandler);
+public interface CallableTestCase extends Callable<Report>, TestCase {
+    /**
+     * 间接调用{@link TestCase#test() 测试用例的test}方法。
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    default Report call() throws Exception {
+        return test();
     }
 }
