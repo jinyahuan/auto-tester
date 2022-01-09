@@ -21,20 +21,19 @@ import cn.jinyahuan.commons.tester.report.Report;
 /**
  * 测试用例的超类接口。
  *
- * @param <P> 测试报告的类型
  * @param <R> {@code API}请求结果数据的类型
  * @param <T> 发送{@code API}请求的参数类型
  * @author Yahuan Jin
  * @see TestCase
- * @see NestedTestCase
  * @see AbstractTestCaseService
- * @see Report
+ * @see NestedTestCase
+ * @see TestCaseGroup
  * @see Requester
  * @see ResponseHandler
- * @see TestCaseGroup
+ * @see Report
  * @since 0.1
  */
-public interface TestCaseService<P, R, T> extends TestCase<P> {
+public interface TestCaseService<R, T> extends TestCase {
     /**
      * 获取测试用例的编号。
      *
@@ -68,14 +67,14 @@ public interface TestCaseService<P, R, T> extends TestCase<P> {
      *
      * @return 测试用例的{@code API}请求器请求结果数据的处理器
      */
-    ResponseHandler<P, R> getResponseHandler();
+    ResponseHandler<Report, R> getResponseHandler();
 
     /**
      * 设置测试用例的{@code API}请求器请求结果数据的处理器。
      *
      * @param responseHandler 测试用例的{@code API}请求器请求结果数据的处理器
      */
-    void setResponseHandler(ResponseHandler<P, R> responseHandler);
+    void setResponseHandler(ResponseHandler<Report, R> responseHandler);
 
     /**
      * 获取测试用例的启动测试时间的毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。

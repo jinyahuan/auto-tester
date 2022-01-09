@@ -21,22 +21,21 @@ import cn.jinyahuan.commons.tester.report.Report;
 /**
  * 测试用例的超类接口。
  *
- * @param <T> 测试报告的类型
  * @author Yahuan Jin
- * @see NestedTestCase
  * @see TestCaseService
  * @see AbstractTestCaseService
- * @see Report
+ * @see NestedTestCase
+ * @see TestCaseGroup
  * @see Requester
  * @see ResponseHandler
- * @see TestCaseGroup
+ * @see Report
  * @since 0.1
  */
-public interface TestCase<T> {
+public interface TestCase {
     /**
      * 对测试用例进行测试。
      *
      * @return 一份测试报告
      */
-    T test();
+    Report test();
 }

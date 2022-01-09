@@ -27,10 +27,13 @@ import java.util.List;
  * <p>todo 需要重构。
  *
  * @author Yahuan Jin
+ * @see TestCase
+ * @see TestCaseService
+ * @see AbstractTestCaseService
+ * @see NestedTestCase
  * @see Requester
  * @see ResponseHandler
- * @see TestCase
- * @see NestedTestCase
+ * @see Report
  * @since 0.1
  */
 public interface TestCaseGroup {
