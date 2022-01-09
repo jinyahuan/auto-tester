@@ -28,6 +28,7 @@ import cn.jinyahuan.commons.tester.ApiPath;
  * @author Yahuan Jin
  * @see ResponseHandler
  * @see TestCase
+ * @see NestedTestCase
  * @see TestCaseGroup
  * @see ApiHost
  * @since 0.1

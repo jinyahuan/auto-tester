@@ -24,6 +24,7 @@ import cn.jinyahuan.commons.tester.report.Report;
  * @param <T> 发送{@code API}请求的参数类型
  * @author Yahuan Jin
  * @see TestCase
+ * @see NestedTestCase
  * @see TestCaseService
  * @see Report
  * @see Requester

@@ -19,11 +19,11 @@ package cn.jinyahuan.commons.tester.tc;
 import cn.jinyahuan.commons.tester.report.Report;
 
 /**
- * 测试用例的超类接口。
+ * 嵌套的测试用例的超类接口。
+ * <p>有关联关系的几个{@code API}以一定的顺序组合测试，比如登陆后查询账户信息，就是一个嵌套的操作，先登录然后查询账户信息。
  *
  * @param <T> 测试报告的类型
  * @author Yahuan Jin
- * @see NestedTestCase
  * @see TestCaseService
  * @see AbstractTestCaseService
  * @see Report
@@ -32,11 +32,8 @@ import cn.jinyahuan.commons.tester.report.Report;
  * @see TestCaseGroup
  * @since 0.1
  */
-public interface TestCase<T> {
-    /**
-     * 对测试用例进行测试。
-     *
-     * @return 一份测试报告
-     */
-    T test();
+public interface NestedTestCase<T> extends TestCase<T> {
+    // todo 暂时还没想好怎么玩，1.0版应该也不会有这个功能
+    // 如果有这个需求的，可以在{@code ResponseHandler}中多层嵌套{@code TestCase}来实现
+    // 虽然代码丑了一点 -_-
 }

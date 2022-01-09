@@ -30,6 +30,7 @@ import java.util.List;
  * @see Requester
  * @see ResponseHandler
  * @see TestCase
+ * @see NestedTestCase
  * @since 0.1
  */
 public interface TestCaseGroup {
