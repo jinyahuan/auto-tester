@@ -16,14 +16,20 @@
 
 package cn.jinyahuan.commons.tester;
 
-import cn.jinyahuan.commons.tester.tc.TestCase;
+import cn.jinyahuan.commons.tester.exception.TestCaseNotPassException;
+import cn.jinyahuan.commons.tester.report.DefaultReport;
+import cn.jinyahuan.commons.tester.report.Report;
 
 /**
- * todo 用于在线程池中执行。
- *
  * @author Yahuan Jin
  * @since 0.1
  */
-public interface RunnableTestCase extends Runnable, TestCase {
-
+public class DemoCallableTestCase implements CallableTestCase {
+    @Override
+    public Report test() {
+        if (1 == 1) {
+            throw new TestCaseNotPassException("预期的异常", this);
+        }
+        return DefaultReport.FAIL;
+    }
 }
