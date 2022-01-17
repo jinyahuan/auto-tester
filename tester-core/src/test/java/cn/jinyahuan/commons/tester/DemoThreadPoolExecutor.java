@@ -17,6 +17,9 @@
 package cn.jinyahuan.commons.tester;
 
 import cn.jinyahuan.commons.tester.exception.TestCaseException;
+import cn.jinyahuan.commons.tester.report.DefaultReport;
+import cn.jinyahuan.commons.tester.report.Report;
+import cn.jinyahuan.commons.tester.report.ReportStatus;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -50,9 +53,10 @@ public class DemoThreadPoolExecutor extends ThreadPoolExecutor {
         // todo 主要是异常的处理
         System.out.println("afterExecute...");
 
-        FutureTask ft = (FutureTask) r;
+        FutureTask<Report> ft = (FutureTask) r;
+        Report report = null;
         try {
-            ft.get();
+            report = ft.get();
         } catch (InterruptedException e) {
             // 正常情况下应该不会去中断线程
             throw new RuntimeException("Unknown exception", e);
@@ -65,6 +69,10 @@ public class DemoThreadPoolExecutor extends ThreadPoolExecutor {
                 System.out.println("出异常的测试用例：" + testCase);
             }
             e.printStackTrace();
+        }
+
+        if (report != null) {
+            System.out.println("TestCase pass? " + DefaultReport.isPassed(report));
         }
     }
 

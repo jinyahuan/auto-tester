@@ -27,18 +27,19 @@ import java.util.concurrent.TimeUnit;
  * @since 0.1
  */
 public class DemoThreadPoolExecutorTest {
-    @Test
-    public void test(){
+    public static void main(String[] args) {
         DemoThreadPoolExecutor executor = new DemoThreadPoolExecutor(
-                4, 8,
+                1, 1,
                 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(10240),
                 new DemoThreadPoolExecutor.TesterThreadFactory(),
                 new ThreadPoolExecutor.CallerRunsPolicy()
         );
 
-        executor.submit(new DemoCallableTestCase());
+        executor.submit(new PassedCallableTestCase());
+        executor.submit(new ExceptionCallableTestCase());
+        executor.submit(new FailedCallableTestCase());
 
-        executor.shutdown();
+//        executor.shutdown();
     }
 }

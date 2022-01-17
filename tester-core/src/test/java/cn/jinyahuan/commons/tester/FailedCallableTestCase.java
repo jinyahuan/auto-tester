@@ -16,7 +16,6 @@
 
 package cn.jinyahuan.commons.tester;
 
-import cn.jinyahuan.commons.tester.exception.TestCaseNotPassException;
 import cn.jinyahuan.commons.tester.report.DefaultReport;
 import cn.jinyahuan.commons.tester.report.Report;
 
@@ -24,12 +23,9 @@ import cn.jinyahuan.commons.tester.report.Report;
  * @author Yahuan Jin
  * @since 0.1
  */
-public class DemoCallableTestCase implements CallableTestCase {
+public class FailedCallableTestCase implements CallableTestCase {
     @Override
     public Report test() {
-        if (1 == 1) {
-            throw new TestCaseNotPassException("预期的异常", this);
-        }
         return DefaultReport.FAIL;
     }
 }
