@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package cn.jinyahuan.commons.tester.tc;
-
-import cn.jinyahuan.commons.tester.ApiHost;
-import cn.jinyahuan.commons.tester.ApiPath;
+package cn.jinyahuan.commons.tester;
 
 /**
- * 请求器的超类接口。
- * <p>此类用于测试用例调用{@code API}。
+ * {@code API}请求器的超类接口。
+ * <p>此类用于发送{@code API}请求，获取{@code API}的请求结果。
+ * 有了{@code API}的请求结果后，可以将其交由{@link ResponseHandler}进行处理，
+ * 处理之后获得一份{@link TestCase 测试报告}。
+ * <p>{@code API}的请求 url 由 {@link ApiHost host} + {@link ApiPath path} 组成，
+ * 例如：host 为 https://api.jinyahuan.cn, path 为 /acct/signin, 完整的 url 为 https://api.jinyahuan.cn/acct/signin.
  *
  * @param <R> 返回值的类型
  * @param <T> 参数的类型
  * @author Yahuan Jin
  * @see ResponseHandler
  * @see TestCase
- * @see NestedTestCase
- * @see TestCaseGroup
- * @see ApiHost
  * @since 0.1
  */
 public interface Requester<R, T> {

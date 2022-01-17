@@ -21,11 +21,11 @@ package cn.jinyahuan.commons.tester;
  * @since 0.1
  */
 public enum ApiHostDemo implements ApiHost {
-    LOCAL("127.0.0.1", "local", "本地环境", false),
-    DEVELOPMENT("192.168.1.90", "dev", "开发环境", false),
-    TEST("192.168.1.91", "test", "测试环境", false),
-    PRE_PRODUCT("192.168.1.99", "pre", "灰度环境", false),
-    PRODUCT("192.168.1.100", "prod", "生产环境", true),
+    LOCAL("http://127.0.0.1",          "local", "本地环境", false),
+    DEVELOPMENT("http://192.168.1.90", "dev",   "开发环境", false),
+    TEST("http://192.168.1.91",        "test",  "测试环境", false),
+    PRE_PRODUCT("http://192.168.1.99", "pre",   "灰度环境", false),
+    PRODUCT("http://192.168.1.100",    "prod",  "生产环境", true),
     ;
 
     private final String host;

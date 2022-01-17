@@ -63,8 +63,8 @@ public enum DefaultReportStatus implements ReportStatus {
      * 当前的状态是否为通过测试的状态。
      *
      * @return {@code true}，当且仅当前的状态为通过测试的状态
-     * @see #isPassed(ReportStatus)
-     * @see #nonPassed(ReportStatus)
+     * @see ReportStatus#isPassed(ReportStatus)
+     * @see ReportStatus#nonPassed(ReportStatus)
      */
     @Override
     public boolean isPass() {

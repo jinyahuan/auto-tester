@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.jinyahuan.commons.tester.tc;
+package cn.jinyahuan.commons.tester;
 
 import cn.jinyahuan.commons.tester.report.Report;
 
@@ -24,8 +24,6 @@ import cn.jinyahuan.commons.tester.report.Report;
  * @author Yahuan Jin
  * @see TestCaseService
  * @see AbstractTestCaseService
- * @see NestedTestCase
- * @see TestCaseGroup
  * @see Requester
  * @see ResponseHandler
  * @see Report

@@ -16,7 +16,7 @@
 
 package cn.jinyahuan.commons.tester.report;
 
-import cn.jinyahuan.commons.tester.tc.TestCase;
+import cn.jinyahuan.commons.tester.TestCase;
 
 /**
  * 默认的测试报告类。

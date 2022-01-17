@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package cn.jinyahuan.commons.tester.tc;
+package cn.jinyahuan.commons.tester;
 
 import cn.jinyahuan.commons.tester.report.Report;
 
 /**
+ * 抽象的测试用例服务类。
+ *
  * @param <R> {@code API}请求结果数据的类型
  * @param <T> 发送{@code API}请求的参数类型
  * @author Yahuan Jin
  * @see TestCase
  * @see TestCaseService
- * @see NestedTestCase
- * @see TestCaseGroup
  * @see Requester
  * @see ResponseHandler
  * @see Report

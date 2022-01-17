@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package cn.jinyahuan.commons.tester.tc;
+package cn.jinyahuan.commons.tester;
 
 /**
- * {@link Requester 请求器}响应参数的处理器的超类接口。
- * <p>此类用于处理{@code API}的请求结果，根据不同的处理策略来决定{@link TestCase 测试用例}是否可以通过测试。
+ * {@code API}的请求结果的处理器的超类接口。
+ * <p>执行{@link Requester 请求器}后获取{@code API}的请求结果后，
+ * 可以将其交由此类的具体实现类进行处理，处理之后获得一份{@link TestCase 测试用例}，
+ * 根据不同的处理策略来决定{@link TestCase 测试用例}是否可以通过测试。
  *
  * @param <R> 返回值的类型
  * @param <T> 参数的类型
  * @author Yahuan Jin
  * @see Requester
  * @see TestCase
- * @see NestedTestCase
- * @see TestCaseGroup
  * @since 0.1
  */
 public interface ResponseHandler<R, T> {

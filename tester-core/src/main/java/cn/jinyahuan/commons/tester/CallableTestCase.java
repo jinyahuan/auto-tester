@@ -17,7 +17,6 @@
 package cn.jinyahuan.commons.tester;
 
 import cn.jinyahuan.commons.tester.report.Report;
-import cn.jinyahuan.commons.tester.tc.TestCase;
 
 import java.util.concurrent.Callable;
 
