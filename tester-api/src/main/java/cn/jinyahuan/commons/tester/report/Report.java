@@ -17,6 +17,7 @@
 package cn.jinyahuan.commons.tester.report;
 
 import cn.jinyahuan.commons.tester.TestCase;
+import cn.jinyahuan.commons.tester.TestCaseService;
 
 /**
  * 测试报告的超类接口。
@@ -75,12 +76,12 @@ public interface Report {
      *
      * @return 报告关联的测试用例
      */
-    TestCase getTestCase();
+    TestCaseService getTestCase();
 
     /**
      * 设置报告关联的测试用例。
      *
      * @param testCase 报告关联的测试用例
      */
-    void setTestCase(TestCase testCase);
+    void setTestCase(TestCaseService testCase);
 }

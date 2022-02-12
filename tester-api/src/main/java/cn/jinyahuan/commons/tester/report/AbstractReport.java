@@ -16,7 +16,7 @@
 
 package cn.jinyahuan.commons.tester.report;
 
-import cn.jinyahuan.commons.tester.TestCase;
+import cn.jinyahuan.commons.tester.TestCaseService;
 
 /**
  * 测试报告的超类抽象类。
@@ -34,11 +34,11 @@ public abstract class AbstractReport implements Report {
     /** 报告关联的测试用例的编号 */
     protected String testCaseNo;
     /** 报告关联的测试用例 */
-    protected TestCase testCase;
+    protected TestCaseService testCase;
 
     public AbstractReport() {}
 
-    public AbstractReport(ReportStatus status, String msg, String testCaseNo, TestCase testCase) {
+    public AbstractReport(ReportStatus status, String msg, String testCaseNo, TestCaseService testCase) {
         this.status = status;
         this.msg = msg;
         this.testCaseNo = testCaseNo;
@@ -76,12 +76,12 @@ public abstract class AbstractReport implements Report {
     }
 
     @Override
-    public TestCase getTestCase() {
+    public TestCaseService getTestCase() {
         return testCase;
     }
 
     @Override
-    public void setTestCase(TestCase testCase) {
+    public void setTestCase(TestCaseService testCase) {
         this.testCase = testCase;
     }
 }

@@ -19,13 +19,20 @@ package cn.jinyahuan.commons.tester;
 import cn.jinyahuan.commons.tester.report.Report;
 
 /**
- * todo 质检员助理。
+ * todo 质检员。
  * <p>主要职责是 review {@link TestCase 测试用例}是否通过测试，同时决定是否中断整个测试。
  *
  * @author Yahuan Jin
  * @since 0.1
  */
 public interface Inspector {
+    /**
+     * 收集测试用例信息。
+     *
+     * @param tcs 待收集的测试用例
+     */
+    void collect(TestCaseService tcs);
+
     /**
      * 收集测试用例的测试报告，并进行处理。
      *

@@ -16,7 +16,7 @@
 
 package cn.jinyahuan.commons.tester.report;
 
-import cn.jinyahuan.commons.tester.TestCase;
+import cn.jinyahuan.commons.tester.TestCaseService;
 
 /**
  * 默认的测试报告类。
@@ -44,7 +44,7 @@ public class DefaultReport extends AbstractReport implements Report {
 
     public DefaultReport() {}
 
-    public DefaultReport(ReportStatus status, String msg, String testCaseNo, TestCase testCase) {
+    public DefaultReport(ReportStatus status, String msg, String testCaseNo, TestCaseService testCase) {
         super(status, msg, testCaseNo, testCase);
     }
 
@@ -58,7 +58,7 @@ public class DefaultReport extends AbstractReport implements Report {
      * @param testCase   报告关联的测试用例
      * @return 一个{@link DefaultReport}对象实例，其状态为通过的
      */
-    public static Report newPassed(String msg, String testCaseNo, TestCase testCase) {
+    public static Report newPassed(String msg, String testCaseNo, TestCaseService testCase) {
         return new DefaultReport(DefaultReportStatus.PASS, msg, testCaseNo, testCase);
     }
 
@@ -70,7 +70,7 @@ public class DefaultReport extends AbstractReport implements Report {
      * @param testCase   报告关联的测试用例
      * @return 一个{@link DefaultReport}对象实例，其状态为跳过的
      */
-    public static Report newSkip(String msg, String testCaseNo, TestCase testCase) {
+    public static Report newSkip(String msg, String testCaseNo, TestCaseService testCase) {
         return new DefaultReport(DefaultReportStatus.SKIP, msg, testCaseNo, testCase);
     }
 
@@ -82,7 +82,7 @@ public class DefaultReport extends AbstractReport implements Report {
      * @param testCase   报告关联的测试用例
      * @return 一个{@link DefaultReport}对象实例，其状态为不通过的
      */
-    public static Report newFailed(String msg, String testCaseNo, TestCase testCase) {
+    public static Report newFailed(String msg, String testCaseNo, TestCaseService testCase) {
         return new DefaultReport(DefaultReportStatus.FAIL, msg, testCaseNo, testCase);
     }
 
@@ -139,7 +139,7 @@ public class DefaultReport extends AbstractReport implements Report {
             }
 
             @Override
-            public void setTestCase(TestCase testCase) {
+            public void setTestCase(TestCaseService testCase) {
                 return;
             }
         };
@@ -168,7 +168,7 @@ public class DefaultReport extends AbstractReport implements Report {
             }
 
             @Override
-            public void setTestCase(TestCase testCase) {
+            public void setTestCase(TestCaseService testCase) {
                 return;
             }
         };
@@ -197,7 +197,7 @@ public class DefaultReport extends AbstractReport implements Report {
             }
 
             @Override
-            public void setTestCase(TestCase testCase) {
+            public void setTestCase(TestCaseService testCase) {
                 return;
             }
         };
