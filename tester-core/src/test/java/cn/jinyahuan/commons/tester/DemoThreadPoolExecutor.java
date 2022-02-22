@@ -17,6 +17,7 @@
 package cn.jinyahuan.commons.tester;
 
 import cn.jinyahuan.commons.tester.exception.TestCaseException;
+import cn.jinyahuan.commons.tester.exception.TestCaseNotPassException;
 import cn.jinyahuan.commons.tester.report.Report;
 
 import java.lang.reflect.Field;
@@ -49,17 +50,8 @@ public class DemoThreadPoolExecutor extends ThreadPoolExecutor {
         // todo 收集信息，还有做一些检查：比如测试用例的编号是否重复等
         System.out.println("beforeExecute...");
 
-        Class<FutureTask> futureTaskClass = FutureTask.class;
-        try {
-            // todo 做缓存
-            Field declaredField = futureTaskClass.getDeclaredField("callable");
-            declaredField.setAccessible(true);
-
-            CallableTestCaseService action = (CallableTestCaseService) declaredField.get(ft);
-            testCaseInspector.collect(action);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        CallableTestCaseService action = getTestCaseFromFutureTask(ft);
+        testCaseInspector.collect(action);
     }
 
     @Override
@@ -78,17 +70,39 @@ public class DemoThreadPoolExecutor extends ThreadPoolExecutor {
             throw new RuntimeException("Unknown exception", e);
         } catch (ExecutionException e) {
             Throwable raw = e.getCause();
-            // todo 如果有异常 进行处理
+
+            TestCaseException tce;
             if (raw instanceof TestCaseException) {
-                TestCaseException tce = (TestCaseException) raw;
-                TestCase testCase = tce.getTestCase();
-                System.out.println("出异常的测试用例：" + testCase);
+                tce = (TestCaseException) raw;
             }
-            e.printStackTrace();
+            else {
+                CallableTestCaseService action = getTestCaseFromFutureTask(ft);
+                tce = new TestCaseNotPassException(e, action);
+            }
+
+            // todo 如果有异常进行处理，可能要利用阻塞队列来实现异常信息的报告
+            TestCaseService testCase = tce.getTestCase();
+            System.out.println("出异常的测试用例编号：" + testCase.getTestCaseNo());
+
+            reportInspector.interrupt();
         }
 
         // 如果能正常拿到结果说明没有异常
         reportInspector.collect(report);
+    }
+
+    static CallableTestCaseService getTestCaseFromFutureTask(FutureTask<Report> ft) {
+        Class<FutureTask> futureTaskClass = FutureTask.class;
+        try {
+            // todo 做缓存
+            Field declaredField = futureTaskClass.getDeclaredField("callable");
+            declaredField.setAccessible(true);
+
+            return (CallableTestCaseService) declaredField.get(ft);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            // todo 异常处理
+            throw new RuntimeException(e);
+        }
     }
 
     static class DemoUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {

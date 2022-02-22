@@ -16,7 +16,7 @@
 
 package cn.jinyahuan.commons.tester.exception;
 
-import cn.jinyahuan.commons.tester.TestCase;
+import cn.jinyahuan.commons.tester.TestCaseService;
 
 /**
  * 所有与测试用例相关的异常的超类。
@@ -28,34 +28,34 @@ public abstract class TestCaseException extends RuntimeException {
     /**
      * 测试用例。
      */
-    private TestCase testCase;
+    private TestCaseService testCase;
 
     // - - -
 
     public TestCaseException() {}
 
-    public TestCaseException(String message, TestCase testCase) {
+    public TestCaseException(String message, TestCaseService testCase) {
         super(message);
         this.testCase = testCase;
     }
 
-    public TestCaseException(String message, Throwable cause, TestCase testCase) {
+    public TestCaseException(String message, Throwable cause, TestCaseService testCase) {
         super(message, cause);
         this.testCase = testCase;
     }
 
-    public TestCaseException(Throwable cause, TestCase testCase) {
+    public TestCaseException(Throwable cause, TestCaseService testCase) {
         super(cause);
         this.testCase = testCase;
     }
 
     // - - -
 
-    public TestCase getTestCase() {
+    public TestCaseService getTestCase() {
         return testCase;
     }
 
-    public void setTestCase(TestCase testCase) {
+    public void setTestCase(TestCaseService testCase) {
         this.testCase = testCase;
     }
 }

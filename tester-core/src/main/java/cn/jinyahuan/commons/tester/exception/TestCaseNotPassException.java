@@ -16,7 +16,7 @@
 
 package cn.jinyahuan.commons.tester.exception;
 
-import cn.jinyahuan.commons.tester.TestCase;
+import cn.jinyahuan.commons.tester.TestCaseService;
 
 /**
  * 标记测试用例未通过的异常。
@@ -27,15 +27,15 @@ import cn.jinyahuan.commons.tester.TestCase;
 public class TestCaseNotPassException extends TestCaseException {
     public TestCaseNotPassException() {}
 
-    public TestCaseNotPassException(String message, TestCase testCase) {
+    public TestCaseNotPassException(String message, TestCaseService testCase) {
         super(message, testCase);
     }
 
-    public TestCaseNotPassException(String message, Throwable cause, TestCase testCase) {
+    public TestCaseNotPassException(String message, Throwable cause, TestCaseService testCase) {
         super(message, cause, testCase);
     }
 
-    public TestCaseNotPassException(Throwable cause, TestCase testCase) {
+    public TestCaseNotPassException(Throwable cause, TestCaseService testCase) {
         super(cause, testCase);
     }
 }
