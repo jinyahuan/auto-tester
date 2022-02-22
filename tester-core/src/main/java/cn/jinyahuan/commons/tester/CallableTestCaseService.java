@@ -16,21 +16,12 @@
 
 package cn.jinyahuan.commons.tester;
 
-import cn.jinyahuan.commons.tester.exception.TestCaseNotPassException;
-import cn.jinyahuan.commons.tester.report.Report;
-
 /**
+ * todo 用于在线程池中执行。
+ *
  * @author Yahuan Jin
  * @since 0.1
  */
-public class ExceptionCallableTestCase extends AbstractTestCaseService
-        implements CallableTestCaseService {
-    public ExceptionCallableTestCase(String testCaseNo, Requester requester, ResponseHandler responseHandler) {
-        super(testCaseNo, requester, responseHandler);
-    }
+public interface CallableTestCaseService extends CallableTestCase, TestCaseService {
 
-    @Override
-    public Report test() {
-        throw new TestCaseNotPassException("预期的异常", this);
-    }
 }

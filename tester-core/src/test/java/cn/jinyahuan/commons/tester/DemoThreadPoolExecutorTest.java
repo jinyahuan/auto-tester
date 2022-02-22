@@ -36,9 +36,10 @@ public class DemoThreadPoolExecutorTest {
                 new ThreadPoolExecutor.CallerRunsPolicy()
         );
 
-        executor.submit(new PassedCallableTestCase());
-        executor.submit(new ExceptionCallableTestCase());
-        executor.submit(new FailedCallableTestCase());
+        executor.submit(new PassedCallableTestCase("1", null, null));
+//        executor.submit(new PassedCallableTestCase("1", null, null));
+        executor.submit(new ExceptionCallableTestCase("2", null, null));
+        executor.submit(new FailedCallableTestCase("3", null, null));
 
 //        executor.shutdown();
     }

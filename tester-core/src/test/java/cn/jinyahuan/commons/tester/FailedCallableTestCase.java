@@ -23,9 +23,14 @@ import cn.jinyahuan.commons.tester.report.Report;
  * @author Yahuan Jin
  * @since 0.1
  */
-public class FailedCallableTestCase implements CallableTestCase {
+public class FailedCallableTestCase extends AbstractTestCaseService
+        implements CallableTestCaseService {
+    public FailedCallableTestCase(String testCaseNo, Requester requester, ResponseHandler responseHandler) {
+        super(testCaseNo, requester, responseHandler);
+    }
+
     @Override
     public Report test() {
-        return DefaultReport.FAIL;
+        return DefaultReport.newFailed("预期的失败", getTestCaseNo(), this);
     }
 }

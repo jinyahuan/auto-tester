@@ -22,28 +22,32 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 本来做适配使用。
+ * 质检员接口的一个抽象类，主要用于快速完成一个实现类。
  *
  * @author Yahuan Jin
  * @since 0.1
  */
 public abstract class AbstractInspector implements Inspector {
-    private static final int DEFAULT_CAPACITY = 1024;
+    /** 默认的存放测试用例的容器的初始容量大小 */
+    private static final int DEFAULT_INIT_CAPACITY = 256;
 
-    private final int capacity;
-
-    protected final Map<String, TestCaseService> testCases;
-    protected final Map<String, Report> reports;
+    /** 存放测试用例的容器的初始容量大小 */
+    protected int initCapacity;
+    /** 存放测试用例的容器。key 为测试用例的编号，value 为测试用例实例 */
+    protected Map<String, TestCaseService> testCases;
+    /** 存放测试用例报告的容器。key 为测试用例的编号，value 为测试用例的报告实例 */
+    protected Map<String, Report> reports;
 
     public AbstractInspector() {
-        this(DEFAULT_CAPACITY);
+        this(DEFAULT_INIT_CAPACITY);
     }
 
-    public AbstractInspector(int capacity) {
-        this.capacity = capacity;
-
-        testCases = new ConcurrentHashMap<>(this.capacity);
-        reports = new ConcurrentHashMap<>(this.capacity);
+    /**
+     * @param initCapacity 存放测试用例的容器的初始容量大小，尽量与测试用例数接近
+     */
+    public AbstractInspector(int initCapacity) {
+        this.initCapacity = initCapacity;
+        instanceInit();
     }
 
     @Override
@@ -61,6 +65,14 @@ public abstract class AbstractInspector implements Inspector {
         doBeforeExit();
 
         System.exit(-1);
+    }
+
+    /**
+     * 当实例化一个对象时会触发此方法。
+     */
+    protected void instanceInit() {
+        testCases = new ConcurrentHashMap<>(this.initCapacity);
+        reports = new ConcurrentHashMap<>(this.initCapacity);
     }
 
     protected void doBeforeExit() {

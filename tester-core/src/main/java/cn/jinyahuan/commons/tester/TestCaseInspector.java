@@ -17,6 +17,9 @@
 package cn.jinyahuan.commons.tester;
 
 /**
+ * 测试用例的质检员。
+ * <p>主要用于收集测试用例，同时检查测试用例是否重复（根据测试用例编号）。
+ *
  * @author Yahuan Jin
  * @since 0.1
  */

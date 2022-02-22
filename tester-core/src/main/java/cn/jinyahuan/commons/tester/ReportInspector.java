@@ -20,6 +20,9 @@ import cn.jinyahuan.commons.tester.report.DefaultReport;
 import cn.jinyahuan.commons.tester.report.Report;
 
 /**
+ * 测试报告的质检员。
+ * <p>主要用于收集测试报告，同时检查测试报告是否通过测试。
+ *
  * @author Yahuan Jin
  * @since 0.1
  */
@@ -35,17 +38,17 @@ public class ReportInspector extends AbstractInspector
         TestCaseService tcs = report.getTestCase();
         String testCaseNo = tcs.getTestCaseNo();
 
-        if (DefaultReport.nonPassed(report)) {
-            // todo 应该打印日志并且调用链也尽量清晰
-            System.out.println("测试报告不通过" + ". testCaseNo=" + testCaseNo);
-
-            interrupt();
-        }
-
         Report old = reports.putIfAbsent(testCaseNo, report);
         if (old != null) {
             // todo 应该打印日志并且调用链也尽量清晰
             System.out.println("测试报告重复啦" + ". testCaseNo=" + testCaseNo);
+
+            interrupt();
+        }
+
+        if (DefaultReport.nonPassed(report)) {
+            // todo 应该打印日志并且调用链也尽量清晰
+            System.out.println("测试报告不通过" + ". testCaseNo=" + testCaseNo);
 
             interrupt();
         }

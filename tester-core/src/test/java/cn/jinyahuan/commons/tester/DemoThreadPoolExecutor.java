@@ -17,10 +17,9 @@
 package cn.jinyahuan.commons.tester;
 
 import cn.jinyahuan.commons.tester.exception.TestCaseException;
-import cn.jinyahuan.commons.tester.report.DefaultReport;
 import cn.jinyahuan.commons.tester.report.Report;
-import cn.jinyahuan.commons.tester.report.ReportStatus;
 
+import java.lang.reflect.Field;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -29,6 +28,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @since 0.1
  */
 public class DemoThreadPoolExecutor extends ThreadPoolExecutor {
+    private Inspector testCaseInspector = new TestCaseInspector();
+    private Inspector reportInspector = new ReportInspector();
+
     public DemoThreadPoolExecutor(int corePoolSize, int maximumPoolSize,
                                   long keepAliveTime, TimeUnit unit,
                                   BlockingQueue<Runnable> workQueue,
@@ -42,8 +44,22 @@ public class DemoThreadPoolExecutor extends ThreadPoolExecutor {
     protected void beforeExecute(Thread t, Runnable r) {
         super.beforeExecute(t, r);
 
+        FutureTask<Report> ft = (FutureTask) r;
+
         // todo 收集信息，还有做一些检查：比如测试用例的编号是否重复等
         System.out.println("beforeExecute...");
+
+        Class<FutureTask> futureTaskClass = FutureTask.class;
+        try {
+            // todo 做缓存
+            Field declaredField = futureTaskClass.getDeclaredField("callable");
+            declaredField.setAccessible(true);
+
+            CallableTestCaseService action = (CallableTestCaseService) declaredField.get(ft);
+            testCaseInspector.collect(action);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -71,9 +87,8 @@ public class DemoThreadPoolExecutor extends ThreadPoolExecutor {
             e.printStackTrace();
         }
 
-        if (report != null) {
-            System.out.println("TestCase pass? " + DefaultReport.isPassed(report));
-        }
+        // 如果能正常拿到结果说明没有异常
+        reportInspector.collect(report);
     }
 
     static class DemoUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {

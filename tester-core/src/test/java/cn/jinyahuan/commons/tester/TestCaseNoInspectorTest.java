@@ -18,7 +18,7 @@ package cn.jinyahuan.commons.tester;
 
 /**
  * @author Yahuan Jin
- * @since 1.0
+ * @since 0.1
  */
 public class TestCaseNoInspectorTest {
     public static void main(String[] args) {

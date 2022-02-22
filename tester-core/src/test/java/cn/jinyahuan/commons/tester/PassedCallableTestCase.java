@@ -16,7 +16,6 @@
 
 package cn.jinyahuan.commons.tester;
 
-import cn.jinyahuan.commons.tester.exception.TestCaseNotPassException;
 import cn.jinyahuan.commons.tester.report.DefaultReport;
 import cn.jinyahuan.commons.tester.report.Report;
 
@@ -24,9 +23,14 @@ import cn.jinyahuan.commons.tester.report.Report;
  * @author Yahuan Jin
  * @since 0.1
  */
-public class PassedCallableTestCase implements CallableTestCase {
+public class PassedCallableTestCase extends AbstractTestCaseService
+        implements CallableTestCaseService {
+    public PassedCallableTestCase(String testCaseNo, Requester requester, ResponseHandler responseHandler) {
+        super(testCaseNo, requester, responseHandler);
+    }
+
     @Override
     public Report test() {
-        return DefaultReport.PASS;
+        return DefaultReport.newPassed("成功", getTestCaseNo(), this);
     }
 }
