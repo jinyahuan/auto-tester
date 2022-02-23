@@ -16,8 +16,6 @@
 
 package cn.jinyahuan.commons.tester;
 
-import cn.jinyahuan.commons.tester.report.Report;
-
 /**
  * todo 质检员。
  * <p>主要职责是 review {@link TestCase 测试用例}是否通过测试，同时决定是否中断整个测试。
@@ -32,13 +30,6 @@ public interface Inspector {
      * @param tcs 待收集的测试用例
      */
     void collect(TestCaseService tcs);
-
-    /**
-     * 收集测试用例的测试报告，并进行处理。
-     *
-     * @param report 待收集的测试用例的测试报告
-     */
-    void collect(Report report);
 
     /**
      * 中断整个测试，报告情况，然后退出虚拟机。

@@ -56,11 +56,6 @@ public abstract class AbstractInspector implements Inspector {
     }
 
     @Override
-    public void collect(Report report) {
-        // 子类来实现具体的操作
-    }
-
-    @Override
     public void interrupt() {
         doBeforeExit();
 

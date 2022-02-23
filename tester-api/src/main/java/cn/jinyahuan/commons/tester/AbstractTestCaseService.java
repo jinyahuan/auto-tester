@@ -19,7 +19,13 @@ package cn.jinyahuan.commons.tester;
 import cn.jinyahuan.commons.tester.report.Report;
 
 /**
- * 抽象的测试用例服务类。
+ * 测试用例服务的抽象类，方便快速实现一个测试用例服务类。
+ * <p>骨架已经搭好了，只要赋值{@link #testCaseNo}、{@link #requester}、{@link #responseHandler}，
+ * 然后执行{@link #test()}方法，如果没有发生非预期的情况，则会生成一份测试报告。
+ * <pre>当前骨架的大致执行流程：
+ *  1. {@link #requester}会请求指定的{@code API}，并且取得响应结果
+ *  2. 拿到第1步取得的响应结果后，交由{@link #responseHandler}进行处理，生成一份测试报告
+ * </pre>
  *
  * @param <R> {@code API}请求结果数据的类型
  * @param <T> 发送{@code API}请求的参数类型
@@ -38,6 +44,8 @@ public abstract class AbstractTestCaseService<R, T> implements TestCaseService<R
     protected Requester<R, T> requester;
     /** 测试用例的{@code API}请求器请求结果数据的处理器 */
     protected ResponseHandler<Report, R> responseHandler;
+    /** 测试用例的测试报告 */
+    protected Report report;
     /** 测试用例的启动测试时间的毫秒数（与 UTC 时间 1970-01-01 的毫秒数差） */
     protected Long startTime;
     /** 测试用例的结束测试时间的毫秒数（与 UTC 时间 1970-01-01 的毫秒数差） */
@@ -88,6 +96,16 @@ public abstract class AbstractTestCaseService<R, T> implements TestCaseService<R
     }
 
     @Override
+    public Report getReport() {
+        return report;
+    }
+
+    @Override
+    public void setReport(Report report) {
+        this.report = report;
+    }
+
+    @Override
     public Long getStartTime() {
         return startTime;
     }
@@ -117,6 +135,7 @@ public abstract class AbstractTestCaseService<R, T> implements TestCaseService<R
             if (response != null) {
                 responseHandler.setParam(response);
                 result = responseHandler.handle();
+                setReport(result);
             }
         }
         setEndTime(System.currentTimeMillis());

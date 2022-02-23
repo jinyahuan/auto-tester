@@ -26,6 +26,8 @@ import cn.jinyahuan.commons.tester.TestCaseService;
  * @author Yahuan Jin
  * @see AbstractReport
  * @see DefaultReport
+ * @see ReportStatus
+ * @see TestCaseService
  * @since 0.1
  */
 public interface Report {

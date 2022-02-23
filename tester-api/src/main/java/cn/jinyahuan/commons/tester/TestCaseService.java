@@ -76,6 +76,20 @@ public interface TestCaseService<R, T> extends TestCase {
     void setResponseHandler(ResponseHandler<Report, R> responseHandler);
 
     /**
+     * 获取测试用例的测试报告。
+     *
+     * @return 测试用例的测试报告
+     */
+    Report getReport();
+
+    /**
+     * 设置测试用例的测试报告。
+     *
+     * @param report 测试用例的测试报告
+     */
+    void setReport(Report report);
+
+    /**
      * 获取测试用例的启动测试时间的毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
      *
      * @return 测试用例的启动测试时间的毫秒数

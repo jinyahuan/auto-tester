@@ -59,30 +59,30 @@ public interface ResponseHandler<R, T> {
     void setResult(R result);
 
     /**
-     * 获取请求{@code API}的开始时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     * 获取请求{@code API}的开始时间。
      *
-     * @return 请求{@code API}的开始时间毫秒数
+     * @return 请求{@code API}的开始时间
      */
     Long getStartTime();
 
     /**
-     * 设置处理器的开始执行时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     * 设置处理器的开始执行时间。
      *
-     * @param startTime 处理器的开始执行时间毫秒数
+     * @param startTime 处理器的开始执行时间
      */
     void setStartTime(Long startTime);
 
     /**
-     * 获取处理器的结束执行时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     * 获取处理器的结束执行时间。
      *
-     * @return 处理器的结束执行时间毫秒数
+     * @return 处理器的结束执行时间
      */
     Long getEndTime();
 
     /**
-     * 设置处理器的结束执行时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
+     * 设置处理器的结束执行时间。
      *
-     * @param endTime 处理器的结束执行时间毫秒数
+     * @param endTime 处理器的结束执行时间
      */
     void setEndTime(Long endTime);
 
@@ -99,12 +99,5 @@ public interface ResponseHandler<R, T> {
      *
      * @return 处理结果
      */
-    default R handle() {
-        setStartTime(System.currentTimeMillis());
-        R result = handle(getParam());
-        setEndTime(System.currentTimeMillis());
-
-        setResult(result);
-        return result;
-    }
+    R handle();
 }

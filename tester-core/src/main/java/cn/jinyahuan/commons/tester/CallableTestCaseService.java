@@ -22,6 +22,6 @@ package cn.jinyahuan.commons.tester;
  * @author Yahuan Jin
  * @since 0.1
  */
-public interface CallableTestCaseService extends CallableTestCase, TestCaseService {
+public interface CallableTestCaseService<R, T> extends CallableTestCase, TestCaseService<R, T> {
 
 }

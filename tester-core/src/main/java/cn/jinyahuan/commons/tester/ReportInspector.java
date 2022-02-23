@@ -30,25 +30,25 @@ public class ReportInspector extends AbstractInspector
         implements Inspector {
 
     @Override
-    public void collect(Report report) {
-        collectReport(report);
+    public void collect(TestCaseService tc) {
+        collectReport(tc);
     }
 
-    protected void collectReport(Report report) {
-        TestCaseService tcs = report.getTestCase();
-        String testCaseNo = tcs.getTestCaseNo();
+    protected void collectReport(TestCaseService tc) {
+        String testCaseNo = tc.getTestCaseNo();
+        Report report = tc.getReport();
+
+        if (DefaultReport.nonPassed(report)) {
+            // todo 应该打印日志并且调用链也尽量清晰
+            System.out.println("测试报告不通过" + ". testCaseNo=" + testCaseNo);
+
+            interrupt();
+        }
 
         Report old = reports.putIfAbsent(testCaseNo, report);
         if (old != null) {
             // todo 应该打印日志并且调用链也尽量清晰
             System.out.println("测试报告重复啦" + ". testCaseNo=" + testCaseNo);
-
-            interrupt();
-        }
-
-        if (DefaultReport.nonPassed(report)) {
-            // todo 应该打印日志并且调用链也尽量清晰
-            System.out.println("测试报告不通过" + ". testCaseNo=" + testCaseNo);
 
             interrupt();
         }

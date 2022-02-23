@@ -31,6 +31,8 @@ public class PassedCallableTestCase extends AbstractTestCaseService
 
     @Override
     public Report test() {
-        return DefaultReport.newPassed("成功", getTestCaseNo(), this);
+        Report report = DefaultReport.newPassed("成功", getTestCaseNo(), this);
+        setReport(report);
+        return report;
     }
 }

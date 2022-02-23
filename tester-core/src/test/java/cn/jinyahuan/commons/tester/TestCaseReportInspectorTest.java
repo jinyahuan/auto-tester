@@ -28,13 +28,17 @@ public class TestCaseReportInspectorTest {
         TestCaseService tc2 = new TestCaseNoInspectorTest.DemoTestCaseService("2", null, null);
         TestCaseService tc3 = new TestCaseNoInspectorTest.DemoTestCaseService("3", null, null);
 
+        tc1.setReport(DefaultReport.newPassed("成功", tc1.getTestCaseNo(), tc1));
+        tc2.setReport(DefaultReport.newSkip("跳过", tc2.getTestCaseNo(), tc2));
+        tc3.setReport(DefaultReport.newFailed("测试失败", tc3.getTestCaseNo(), tc3));
+
         ReportInspector inspector = new ReportInspector();
-        inspector.collect(DefaultReport.newPassed("成功", tc1.getTestCaseNo(), tc1));
+        inspector.collect(tc1);
 //        inspector.collect(DefaultReport.newPassed("测试重复测试用例编号", tc1.getTestCaseNo(), tc1));
 //        System.out.println(inspector.getReportByTestCaseNo("1"));
 
-        inspector.collect(DefaultReport.newSkip("跳过", tc2.getTestCaseNo(), tc2));
-        inspector.collect(DefaultReport.newFailed("测试失败", tc3.getTestCaseNo(), tc3));
+        inspector.collect(tc2);
+        inspector.collect(tc3);
 
         System.out.println(inspector.getReportByTestCaseNo("3"));
     }

@@ -31,6 +31,8 @@ public class FailedCallableTestCase extends AbstractTestCaseService
 
     @Override
     public Report test() {
-        return DefaultReport.newFailed("预期的失败", getTestCaseNo(), this);
+        Report report = DefaultReport.newFailed("预期的失败", getTestCaseNo(), this);
+        setReport(report);
+        return report;
     }
 }

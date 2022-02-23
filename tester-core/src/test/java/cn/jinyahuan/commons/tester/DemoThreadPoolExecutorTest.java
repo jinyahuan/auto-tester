@@ -36,6 +36,20 @@ public class DemoThreadPoolExecutorTest {
                 new ThreadPoolExecutor.CallerRunsPolicy()
         );
 
+        SimulationTestCase simulationTestCase = new SimulationTestCase();
+
+        SimulationTestCase.SimulationRequester simulationRequester = new SimulationTestCase.SimulationRequester();
+        simulationRequester.setApiHost(SimulationTestCase.SimulationApiHost.LOCAL);
+        simulationRequester.setApiPath(SimulationTestCase.SimulationApiPath.ACCOUNT_LOGIN);
+        simulationRequester.setParam("this is simulated param");
+        SimulationTestCase.SimulationResponseHandler simulationResponseHandler =
+                simulationTestCase.new SimulationResponseHandler(simulationTestCase);
+
+        simulationTestCase.setTestCaseNo("999");
+        simulationTestCase.setRequester(simulationRequester);
+        simulationTestCase.setResponseHandler(simulationResponseHandler);
+
+        executor.submit(simulationTestCase);
         executor.submit(new PassedCallableTestCase("1", null, null));
 //        executor.submit(new PassedCallableTestCase("1", null, null));
         executor.submit(new ExceptionCallableTestCase("2", null, null));

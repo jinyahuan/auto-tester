@@ -84,9 +84,9 @@ public interface Requester<R, T> {
     /**
      * 设置请求后的结果数据。
      *
-     * @param Result 请求后的结果数据
+     * @param result 请求后的结果数据
      */
-    void setResult(R Result);
+    void setResult(R result);
 
     /**
      * 获取请求{@code API}的开始时间毫秒数（与 UTC 时间 1970-01-01 的毫秒数差）。
@@ -129,12 +129,5 @@ public interface Requester<R, T> {
      *
      * @return 请求的结果
      */
-    default R request() {
-        setStartTime(System.currentTimeMillis());
-        R response = request(getParam());
-        setEndTime(System.currentTimeMillis());
-
-        setResult(response);
-        return response;
-    }
+    R request();
 }

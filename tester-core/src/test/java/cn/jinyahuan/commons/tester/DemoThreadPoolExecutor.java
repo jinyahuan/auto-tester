@@ -58,10 +58,11 @@ public class DemoThreadPoolExecutor extends ThreadPoolExecutor {
     protected void afterExecute(Runnable r, Throwable t) {
         super.afterExecute(r, t);
 
+        FutureTask<Report> ft = (FutureTask) r;
+
         // todo 主要是异常的处理
         System.out.println("afterExecute...");
 
-        FutureTask<Report> ft = (FutureTask) r;
         Report report = null;
         try {
             report = ft.get();
@@ -74,21 +75,21 @@ public class DemoThreadPoolExecutor extends ThreadPoolExecutor {
             TestCaseException tce;
             if (raw instanceof TestCaseException) {
                 tce = (TestCaseException) raw;
-            }
-            else {
-                CallableTestCaseService action = getTestCaseFromFutureTask(ft);
-                tce = new TestCaseNotPassException(e, action);
-            }
 
-            // todo 如果有异常进行处理，可能要利用阻塞队列来实现异常信息的报告
-            TestCaseService testCase = tce.getTestCase();
-            System.out.println("出异常的测试用例编号：" + testCase.getTestCaseNo());
+                // todo 如果有异常进行处理，可能要利用阻塞队列来实现异常信息的报告
+                TestCaseService testCase = tce.getTestCase();
+                System.out.println("出异常的测试用例编号：" + testCase.getTestCaseNo() + ", " + tce.getMessage());
+            }
+            // todo 如果是其它异常，可能收集不到发生异常的测试用例的信息
+            else {
+
+            }
 
             reportInspector.interrupt();
         }
 
         // 如果能正常拿到结果说明没有异常
-        reportInspector.collect(report);
+        reportInspector.collect(report.getTestCase());
     }
 
     static CallableTestCaseService getTestCaseFromFutureTask(FutureTask<Report> ft) {
